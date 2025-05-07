@@ -1,7 +1,7 @@
 from langchain.agents import initialize_agent, AgentType
 from langchain_community.llms import HuggingFaceHub
 from langchain.memory import ConversationBufferMemory
-from tools.multiply import multiply_nums
+from tools.multiply import multiply_nums_tool
 from tools.weather import weather_by_address_tool, weather_by_coordinates_tool
 from custom_llm import HFClientLLM
 from dotenv import load_dotenv
@@ -27,7 +27,7 @@ llm = HuggingFaceEndpoint(
 #llm = HFClientLLM()
 
 tools = [
-    multiply_nums,
+    multiply_nums_tool,
     weather_by_coordinates_tool,
     weather_by_address_tool
 ]
