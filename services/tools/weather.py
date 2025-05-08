@@ -58,7 +58,7 @@ def get_weather_by_address(location: str) -> str:
     coor_input = f"{coordinates['lng']}, {coordinates['lat']}"
     stmt = get_weather_by_coordinates(coor_input)
     stmt = stmt.split()
-    stmt[0] = location
+    stmt[3] = location
     return " ".join(stmt)
 
 
