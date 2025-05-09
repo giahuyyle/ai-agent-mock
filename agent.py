@@ -29,7 +29,8 @@ llm = ChatOpenAI(
     api_key=os.getenv("OPENAI_API_KEY"),
     model_name="gpt-4o-mini",
     temperature=0,
-)         
+    max_retries=5,  # Set the maximum number of retries
+)
 
 # Alternative approach if you want to keep using HuggingFaceHub
 # from langchain_huggingface import ChatHuggingFace
