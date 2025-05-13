@@ -60,7 +60,7 @@ if prompt := st.chat_input("What is up?"):
         full_response = ""
         assistant_response = agent.invoke(prompt)
         # Simulate stream of response with milliseconds delay
-        for chunk in assistant_response.split():
+        for chunk in assistant_response["output"].split():
             full_response += chunk + " "
             time.sleep(0.05)
             # Add a blinking cursor to simulate typing
