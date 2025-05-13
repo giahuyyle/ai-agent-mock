@@ -1,11 +1,41 @@
 import streamlit as st
 import random
 import time
-from agent import agent
+from langchain.chat_models import ChatOpenAI
+from langchain.agents import initialize_agent, AgentType
+from st_services.weather import weather_by_address_tool, weather_by_coordinates_tool
+from langchain.memory import ConversationBufferMemory
+
 
 st.write("Streamlit loves LLMs! 🤖 [Build your own chat app](https://docs.streamlit.io/develop/tutorials/llms/build-conversational-apps) in minutes, then make it powerful by adding images, dataframes, or even input widgets to the chat.")
 
 st.caption("Note that this demo app isn't actually connected to any LLMs. Those are expensive ;)")
+
+# Initialize the LLM
+llm = ChatOpenAI(
+    api_key=st.secrets["OPENAI_API_KEY"],
+    model_name="gpt-4o-mini",
+    temperature=0,
+    max_retries=5,  # Set the maximum number of retries
+)
+
+# Tools
+tools = [
+    weather_by_coordinates_tool,
+    weather_by_address_tool
+]
+
+# Initialize the agent
+memory = ConversationBufferMemory(memory_key="chat_history")
+
+agent = initialize_agent(
+    tools=tools,
+    llm=llm,
+    agent_type=AgentType.CONVERSATIONAL_REACT_DESCRIPTION,
+    # agent_type=AgentType.ZERO_SHOT_REACT_DESCRIPTION,
+    verbose=True,
+    memory=memory
+)
 
 # Initialize chat history
 if "messages" not in st.session_state:
