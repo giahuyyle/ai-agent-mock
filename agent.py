@@ -1,5 +1,4 @@
 from langchain.agents import initialize_agent, AgentType
-from langchain_community.llms import HuggingFaceHub
 from langchain.memory import ConversationBufferMemory
 from openai import OpenAI
 from services.tools.multiply import multiply_nums_tool
